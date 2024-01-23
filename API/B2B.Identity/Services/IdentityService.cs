@@ -25,15 +25,15 @@ namespace Services.B2B.Identity.Services
             _jwtOptions = jwtOptions.Value;
         }
 
-        
 
         public async Task<UserLoginResponse> Login(UserLoginRequest usuarioLogin)
-        { 
+        {
             var result = await _signInManager.PasswordSignInAsync(usuarioLogin.Email, usuarioLogin.Password, false, true);
             if (result.Succeeded)
                 return await GenerateCredentials(usuarioLogin.Email);
 
             var usuerLoginResponse = new UserLoginResponse();
+
             if (!result.Succeeded)
             {
                 if (result.IsLockedOut)
@@ -51,18 +51,30 @@ namespace Services.B2B.Identity.Services
 
         private async Task<UserLoginResponse> GenerateCredentials(string email)
         {
-            var user = await _userManager.FindByEmailAsync(email);
-            var accessTokenClaims = await GetClaims(user, addClaimsUser: true);      
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(email);
 
-            var dataExpiracaoAccessToken = DateTime.UtcNow.AddSeconds(_jwtOptions.Expiration);
+                if (user == null)
+                    throw new Exception("Erro: Usuario nao encontrado");
 
-            var accessToken = GenerateToken(accessTokenClaims, dataExpiracaoAccessToken);
+                var accessTokenClaims = await GetClaims(user, addClaimsUser: true);
 
-            return new UserLoginResponse
-            (
-                sucess: true,
-                accessToken: accessToken
-            );
+                var dataExpiracaoAccessToken = DateTime.UtcNow.AddSeconds(_jwtOptions.Expiration);
+
+                var accessToken = GenerateToken(accessTokenClaims, dataExpiracaoAccessToken);
+
+                return new UserLoginResponse
+                (
+                    sucess: true,
+                    accessToken: accessToken
+                );
+            }
+            catch(Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return null;
+            }
         }
 
         private string GenerateToken(IEnumerable<Claim> claims, DateTime expirationDate)
@@ -91,17 +103,41 @@ namespace Services.B2B.Identity.Services
 
             if (addClaimsUser)
             {
-                var userClaims = await _userManager.GetClaimsAsync(user);
-                var roles = await _userManager.GetRolesAsync(user);
+                // Log user information for debugging
+                Console.WriteLine($"User: {user?.UserName}");
 
-                claims.AddRange(userClaims);
+                if (user != null)
+                {
+                    var userClaims = await _userManager.GetClaimsAsync(user);
+                    var roles = await _userManager.GetRolesAsync(user);
 
-                foreach (var role in roles)
-                    claims.Add(new Claim("role", role));
+
+                    // Log userClaims and roles for debugging
+                    Console.WriteLine($"User Claims: {string.Join(", ", userClaims)}");
+                    Console.WriteLine($"Roles: {string.Join(", ", roles)}");
+
+                    if (userClaims != null)
+                        claims.AddRange(userClaims);
+
+                    // Check for null before adding roles
+                    if (roles != null)
+                    {
+                        foreach (var role in roles)
+                            claims.Add(new Claim("role", role));
+                    }
+                }
+                else
+                {
+                    // Handle the case where user is null (you can log or throw an exception)
+                    // For now, let's add a placeholder claim for demonstration purposes
+                    Console.WriteLine("User is null");
+                    claims.Add(new Claim("userIsNull", "true"));
+                }
             }
 
             return claims;
         }
+
 
     }
 }

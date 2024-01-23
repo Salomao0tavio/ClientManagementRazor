@@ -16,8 +16,4 @@
 		<ProjectReference Include="..\B2B.Domain\B2B.Domain.csproj" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CrossCutting\" />
-  </ItemGroup>
-
 </Project>
