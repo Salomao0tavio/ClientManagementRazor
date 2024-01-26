@@ -1,0 +1,161 @@
+﻿@page
+
+@model LoginModel
+
+@{
+    Layout = "_LayoutLogin";
+}
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+<style>
+    @@media (max-width: 768px) {
+        .topForm {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .form-floating {
+            width: 100%;
+        }
+
+        .line-container hr {
+            width: 30%;
+        }
+
+        .button-container {
+            width: 100%;
+            max-width: 100%;
+            margin-top: 10px;
+        }
+    }
+
+    .form {
+        height: 700px;
+    }
+
+    .form-control {
+        font-family: MontSerratBold;
+        margin-top: 20px;
+        border-radius: 30px;
+        border: 1px solid blue;
+    }
+
+    .topForm {
+        display: flex;
+        align-items: center;
+        font-family: MontSerratBold;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .dock {
+        padding-top: 10%;
+        padding-bottom: 10%;
+        height: 800px;
+        max-width: 700px;
+        padding: 2rem;
+        background-color: white;
+        width: 100%;
+        margin: auto;
+    }
+
+    .line-container {
+        display: flex;
+        text-align: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: baseline;
+    }
+
+        .line-container hr {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            width: 40%;
+            display: inline-block;
+        }
+
+    .center-text {
+        display: inline-block;
+        background-color: white;
+        padding: 0 10px;
+    }
+
+    .line-container div {
+        margin: 0 10px;
+    }
+
+    .button-container {
+        font-family: MontSerratBold;
+    }
+</style>
+
+<div class="dock">
+    <section>
+        <div class="topForm">
+            <img src="~/images/LOGO_IMG_SIDETEXT.png" class="img mb-3" alt="My image" style="width: 15rem" />
+            <h2>Acessar o sistema</h2>
+        </div>
+
+        <form id="account" method="post" class="form">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <div class="form-floating mb-5 mt-5">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="nome@exemplo.com" />
+                <label asp-for="Input.Email" class="form-label">E-mail</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-2">
+                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="senha" />
+                <label asp-for="Input.Password" class="form-label">Senha</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+            </div>
+            <p class="mb-5">
+                <a id="forgot-password" asp-page="./ForgotPassword">Esqueceu sua senha?</a>
+            </p>
+
+            <div class="button-container">
+                <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Entrar</button>
+            </div>
+
+            <div class="line-container">
+                <hr>
+                <div>ou</div>
+                <hr>
+            </div>
+
+            <html>
+            <body>
+                <script src="https://accounts.google.com/gsi/client" async></script>
+                <div id="g_id_onload"
+                     data-client_id="344347954038-9gvevhe6hhhg44aq0kds0hphqnnilqlh"
+                     data-login_uri="https://localhost:7127/Identity/Account/Login"
+                     data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-size="large"
+                     data-theme="outline"
+                     data-text="sign_in_with"
+                     data-shape="rectangular"
+                     data-logo_alignment="left">
+                </div>
+                <body>
+        </html>
+
+
+
+        </form>
+    </section>
+
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
