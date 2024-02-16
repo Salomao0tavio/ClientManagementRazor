@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+namespace B2B.Application.DTOs.Request;
 
-namespace Application.B2B_Application.DTOs.Request
+public class UserLoginRequest
 {
-    public class UserLoginRequest
-    {
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [EmailAddress(ErrorMessage = "O campo {0} é inválido")]
-        public required string Email { get; set; }
+    [Required(ErrorMessage = "Insira o Email.")]
+    [EmailAddress(ErrorMessage = "O email é inválido.")]
+    public required string Email { get; set; }
 
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public required string Password { get; set; }
-    }
+    [Required(ErrorMessage = "Insira a senha.")]
+    [DataType(DataType.Password)]
+    public required string Password { get; set; }
 }

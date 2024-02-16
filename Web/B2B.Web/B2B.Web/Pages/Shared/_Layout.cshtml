@@ -1,31 +1,36 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="google-signin-client_id" content="344347954038-9gvevhe6hhhg44aq0kds0hphqnnilqlh.apps.googleusercontent.com.apps.googleusercontent.com">
     <title>@ViewData["Title"] - ComConnect</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/B2B.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/> 
+    <link rel="stylesheet" href="~/B2B.Web.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+   <link rel="stylesheet" href="~/css/bootstrap.min.css"> 
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-               <img src="~/images/LOGO_IMG.png" class="img" alt="My image" style="width: 5rem"/>
+                <img src="~/images/LOGO_IMG.png" class="img" alt="My image" style="width: 5rem"/>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav mx-auto"> 
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link h3" asp-area="" asp-page="/Index">Home</a>
-                        </li>                        
-                        @await Html.PartialAsync("_LoginPartial")                       
+                            <a class="nav-link h4" href="/Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link h4" href="/Customer">Customer</a>
+                        </li>
+                        @await Html.PartialAsync("_LoginPartial")
                     </ul>
-                </div>  
+                </div>
             </div>
         </nav>
     </header>
@@ -35,17 +40,13 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - ComConnect
-        </div>
-    </footer>
-
+    <!-- Mantenha apenas uma importação do jQuery e do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", false)
 </body>
 </html>

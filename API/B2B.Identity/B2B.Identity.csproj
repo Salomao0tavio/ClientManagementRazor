@@ -14,8 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\B2B.Application\B2B_Application.csproj" />
-    <ProjectReference Include="..\B2B.Domain\B2B.Domain.csproj" />
+    <ProjectReference Include="..\B2B.Application\B2B.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 
-namespace Services.B2B_Identity.Configurations
+namespace B2B.Identity.Configurations
 {
     public class JwtOptions
     {

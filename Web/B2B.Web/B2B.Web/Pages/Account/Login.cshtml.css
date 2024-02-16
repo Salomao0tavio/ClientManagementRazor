@@ -1,0 +1,97 @@
+@media (max-width: 768px) {
+    .topForm {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .form-floating {
+        width: 100%;
+    }
+
+    .line-container hr {
+        width: 30%;
+    }
+
+    .button-container {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 10px;
+    }
+
+}
+
+.form {
+    height: 700px;
+}
+
+.form-control {
+    font-family: MontSerratBold;
+    margin-top: 20px;
+    border-radius: 30px;
+    border: 1px solid blue;
+}
+
+.topForm {
+    display: flex;
+    align-items: center;
+    font-family: MontSerratBold;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.dock {
+    padding-top: 10%;
+    padding-bottom: 10%;
+    height: 800px;
+    max-width: 700px;
+    padding: 2rem;
+    background-color: white;
+    width: 100%;
+    margin: auto;
+}
+
+.line-container {
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.line-container hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 40%;
+    display: inline-block;
+}
+
+.center-text {
+    display: inline-block;
+    background-color: white;
+    padding: 0 10px;
+}
+
+.line-container div {
+    margin: 0 10px;
+}
+
+.button-container {
+    font-family: MontSerratBold;
+}
+
+#login-submit {
+    background-color: blue;
+    color: white;
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    border-bottom-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-width: 0px;
+}
+
+#forgot-password {
+    font-size: 15px;
+}
+

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.3.1" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\B2B.Domain\B2B.Domain.csproj" />
+    </ItemGroup>
+
+
+</Project>

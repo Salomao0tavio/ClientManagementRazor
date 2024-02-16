@@ -24,9 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\B2B.Application\B2B_Application.csproj" />
-    <ProjectReference Include="..\B2B.Domain\B2B.Domain.csproj" />
-    <ProjectReference Include="..\B2B.Identity\B2B.Identity.csproj" />
+    <ProjectReference Include="..\B2B.Application\B2B.Application.csproj" />
+    <ProjectReference Include="..\B2B.Infrastructure\B2B.Infrastructure.csproj" />
   </ItemGroup>
 
 

@@ -1,29 +1,33 @@
 ﻿using System.Text.Json.Serialization;
 
+namespace B2B.Application.DTOs.Response;
 
-namespace Application.B2B_Application.DTOs.Response
+public class UserLoginResponse
 {
-    public class UserLoginResponse
+    public UserLoginResponse()
     {
-        public bool Sucess => Errors.Count == 0;
+        Errors = new List<string>();
+    }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string AccessToken { get; private set; }
-       
-        public List<string> Errors { get; private set; }
+    public UserLoginResponse(bool sucess, string accessToken) : this()
+    {
+        AccessToken = accessToken;
+    }
 
-        public UserLoginResponse() =>
-            Errors = new List<string>();
+    public bool Sucess => Errors.Count == 0;
 
-        public UserLoginResponse(bool sucess, string accessToken) : this()
-        {
-            AccessToken = accessToken;
-        }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string AccessToken { get; private set; }
 
-        public void AddError(string error) =>
-            Errors.Add(error);
+    public List<string> Errors { get; }
 
-        public void AddErrors(IEnumerable<string> errors) =>
-            Errors.AddRange(errors);
+    public void AddError(string error)
+    {
+        Errors.Add(error);
+    }
+
+    public void AddErrors(IEnumerable<string> errors)
+    {
+        Errors.AddRange(errors);
     }
 }

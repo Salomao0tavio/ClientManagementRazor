@@ -1,0 +1,50 @@
+﻿@model Customer
+
+<div class="modal" tabindex="-1" id="editModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Editar Cliente</h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Update" asp-route-id="@Model.ID" method="post">
+                    @foreach (var property in new[] { "Name", "Email", "Phone", "Address", "Business" })
+                    {
+                        <div class="form-group">
+                            <label for="edit@property">@property</label>
+                            <input class="form-control" placeholder="Digite o novo @property do cliente" type="text" id="edit@property" />
+                        </div>
+                    }
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updateCustomer('@Model.ID')">Salvar Alterações</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function updateCustomer(id) {
+        var customerId = id;
+        var newCustomer = {};
+
+        ["Name", "Email", "Phone", "Address", "Business"].forEach(property => {
+            var inputValue = document.getElementById(`edit${property}`).value;
+            newCustomer[property] = inputValue !== null && inputValue !== '' ? inputValue : '@Model.' + property;
+        });      
+
+        fetch(`https://localhost:7063/v1/customers/${customerId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newCustomer)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    alert('Erro ao atualizar cliente:')
+                }
+                alert('Cliente atualizado com sucesso')
+            })
+    }
+</script>
+    

@@ -1,16 +1,13 @@
-
-using Application.B2B.Application;
-using Services.B2B.API.Extensions;
+using B2B.API.DI;
+using B2B.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuration for the API
+// Configuration for the Api
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddCors();
-builder.Services.AddControllers();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddSwagger();
 builder.Services.AddAuthentication(builder.Configuration);
@@ -26,10 +23,12 @@ if (app.Environment.IsDevelopment())
 }
 
 // General configurations
-app.UseCors(x => x
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader());
+app.UseCors(options =>
+{
+    options.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+});
 
 app.UseHttpsRedirection();
 app.UseRouting();
@@ -39,6 +38,8 @@ app.UseAuthorization();
 
 // Route configuration and default page
 app.UseEndpoints(endpoints =>
-    endpoints.MapControllers());
+{
+    endpoints.MapControllers();
+});
 
 app.Run();

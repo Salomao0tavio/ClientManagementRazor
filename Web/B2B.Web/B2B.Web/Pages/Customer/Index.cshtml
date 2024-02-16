@@ -1,0 +1,87 @@
+﻿@page
+@model CustomerModel
+
+<div class="title-search-create-container">
+    <h1>Clientes</h1>
+    <div class="search-create-container">
+        <button data-bs-toggle="modal" data-bs-target="#createModal" type="button" class="btn btn-primary btn-custom create">
+            <t>Criar</t>
+            <i class="bi bi-plus-square-fill"></i>
+        </button>
+        <input type="text" id="search-input" class="form-control search-input" placeholder="Buscar">
+
+        <button type="button" class="btn btn-primary btn-custom" onkeyup="searchTable()">
+            <i class="bi bi-search"></i>
+        </button>
+    </div>
+</div>
+
+@Html.Partial("_CustomerTable")
+
+@Html.Partial("_CreateModal", Model.Input)
+
+@foreach (var customer in Model.Customers)
+{
+    @Html.Partial("_EditModal", customer)
+    @Html.Partial("_DetailModal", customer)
+    @Html.Partial("_DeleteModal", customer)
+}
+
+<script>
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search-input");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("customerTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function deleteCustomer(id, name) {
+        var customerId = id
+        var customerName = name;
+
+        fetch(`https://localhost:7063/v1/customers/${customerId}`, {
+            method: 'DELETE',
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert(`Cliente ${customerName} apagado com sucesso:`);
+                    location.reload();
+                }
+                else
+                    alert(`Erro ao apagar cliente: ${error}`);
+            })
+    }
+
+    function updateCustomer(id, customer) {
+        var customerId = id;
+        var newCustomer = customer;
+
+        fetch(`https://localhost:7063/v1/customers/${customerId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newCustomer)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    alert('Erro ao atualizar cliente:', error);
+                }
+                alert('Cliente atualizado com sucesso:', data);
+            })
+
+    }
+</script>

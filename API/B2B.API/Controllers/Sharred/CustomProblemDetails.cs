@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Services.B2B.API.Controllers.Shared
+namespace B2B.API.Controllers.Sharred
 {
     public class CustomProblemDetails : ProblemDetails
     {
@@ -11,9 +11,9 @@ namespace Services.B2B.API.Controllers.Shared
         {
             Title = status switch
             {
-                HttpStatusCode.BadRequest => "One or more validation errors occurred.",
-                HttpStatusCode.InternalServerError => "Internal server error.",
-                _ => "An error has occurred."
+                HttpStatusCode.BadRequest => "Uma ou mais invalidaçoes ocorreram.",
+                HttpStatusCode.InternalServerError => "Erro interno servidor.",
+                _ => "Ocorreu um erro"
             };
 
             Status = (int)status;
@@ -24,14 +24,14 @@ namespace Services.B2B.API.Controllers.Shared
                 if (errors.Count() == 1)
                     Detail = errors.First();
                 else if (errors.Count() > 1)
-                    Detail = "Multiple problems have occurred.";
+                    Detail = "Muiltiplos erros foram encontrados.";
 
                 Errors.AddRange(errors);
             }
         }
 
-        public CustomProblemDetails(HttpStatusCode status, HttpRequest request, string? detail = null, IEnumerable<string>? errors = null) : this(status, detail, errors) =>
-            Instance = request.Path;
+        public CustomProblemDetails(HttpStatusCode status, HttpRequest request, string? detail = null, IEnumerable<string>? errors = null)
+            : this(status, detail, errors) => Instance = request.Path;
 
         private CustomProblemDetails() =>
             Errors = new List<string>();

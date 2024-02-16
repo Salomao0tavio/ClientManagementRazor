@@ -1,0 +1,58 @@
+﻿    @model CustomerModel
+
+    @if (Model.Customers != null)
+    {
+        <!-- Tabela com altura máxima e rolagem -->
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table customerTable">
+                    <!-- Cabeçalhos da tabela -->
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">Name</th>
+                            <th style="text-align: center;">Email</th>
+                            <th style="text-align: center;">Telefone</th>
+                            <th style="text-align: center;">Endereço</th>
+                            <th style="text-align: center;">Empresa</th>
+                            <th style="text-align: center;">Ações</th>
+                        </tr>
+                    </thead>
+                    <!-- Corpo da tabela -->
+                    <tbody>
+                        @foreach (var customer in Model.Customers)
+                        {
+                            <tr>
+                                <!-- Exibir informações do cliente -->
+                                <td>@customer.Name</td>
+                                <td>@customer.Email</td>
+                                <td>@customer.Phone</td>
+                                <td>@customer.Address</td>
+                                <td>@customer.Business</td>
+                                <!-- Ações -->
+                                <td>
+                                    <button data-bs-toggle="modal" data-bs-target="#editModal" data-cliente-id="@customer.ID" type="button" class="btn btn-outline-success edit">
+                                        <t> Editar </t>
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </button>
+                                    <button data-bs-toggle="modal" data-bs-target="#detailModal" data-cliente-id="@customer.ID" type="button" class="btn btn-outline-warning details">
+                                        <t> Detalhes </t>
+                                        <i class="bi bi-eye-fill"></i>
+                                    </button>
+                                    <button data-bs-toggle="modal" data-bs-target="#deleteModal-@customer.ID" data-cliente-id="@customer.ID" data-cliente-nome="@customer.Name" type="button" class="btn btn-outline-danger details">
+                                        <t> Excluir </t>
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <text>Custumers nao foi carregado corretamente.</text>
+    }

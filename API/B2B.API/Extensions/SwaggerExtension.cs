@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace Services.B2B.API.Extensions
+namespace B2B.API.Extensions
 {
     public static class SwaggerExtension
     {
@@ -16,7 +16,7 @@ namespace Services.B2B.API.Extensions
             {
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                
+
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header using the Bearer scheme. 

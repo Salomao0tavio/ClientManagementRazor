@@ -1,23 +1,33 @@
+using B2B.Application.Interfaces;
+using B2B.Application.Services;
+using B2B.Infrastructure.Data.Context;
+using B2B.Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using B2B.Web.Data;
+
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-builder.Services.AddDbContext<B2BWebContext>(options => options.UseSqlServer(connectionString));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<B2BWebContext>();
+var services = builder.Services;
 
-builder.Services.AddAuthentication()
-   .AddGoogle(options =>
-   {
-       IConfigurationSection googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
-       options.ClientId = googleAuthNSection["ClientId"];
-       options.ClientSecret = googleAuthNSection["ClientSecret"];
-   });
+services.AddHttpClient<CustomerService>("CustomerServiceClient", client => { client.BaseAddress = new Uri("https://localhost:7063"); });
+services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
+services.AddDbContext<UserDataContext>(options => options.UseSqlServer(connectionString));
+services.AddDefaultIdentity<IdentityUser>(options =>{ options.SignIn.RequireConfirmedAccount = true; }).AddEntityFrameworkStores<UserDataContext>();
+services.AddAuthentication().AddGoogle(options =>
+{
+    var googleAuthNSection = builder.Configuration.GetSection("Authentication:Google");
+    options.ClientId = googleAuthNSection["ClientId"] ?? throw new InvalidOperationException();
+    options.ClientSecret = googleAuthNSection["ClientSecret"] ?? throw new InvalidOperationException();
+});
+services.AddHttpClient();
+services.AddRazorPages();
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+
+services.AddScoped<ICustomerRepository, CustomerRepository>();
+services.AddScoped<CustomerRepository>();
 
 var app = builder.Build();
 
@@ -25,7 +35,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

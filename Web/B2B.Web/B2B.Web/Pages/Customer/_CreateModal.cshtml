@@ -1,0 +1,72 @@
+﻿@model Customer
+
+<div class="modal" tabindex="-1" id="createModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Adicionar Cliente</h4>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Post">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input asp-for="Name" class="form-control" placeholder="Digite o novo nome do cliente" type="text" id="createName" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input asp-for="Email" class="form-control" placeholder="Digite o novo email do cliente" type="email" id="createEmail" />
+                    </div>
+                    <div class="form-group">
+                        <label >Telefone</label>
+                        <input asp-for="Phone" class="form-control" placeholder="Digite o novo telefone do cliente" type="tel" id="createPhone" />
+                    </div>
+                    <div class="form-group">
+                        <label>Endereço</label>
+                        <input asp-for="Address" class="form-control" placeholder="Digite o novo endereço do cliente" type="text" id="createAddress" />
+                    </div>
+                    <div class="form-group">
+                        <label>Empresa</label>
+                        <input asp-for="Business" class="form-control" placeholder="Digite a nova empresa do cliente" type="text" id="createBusiness" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="createCustomer()">Adicionar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+               </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function createCustomer() {
+        var customerData = {
+            Name: document.getElementById('createName').value,
+            Email: document.getElementById('createEmail').value,
+            Phone: document.getElementById('createPhone').value,
+            Address: document.getElementById('createAddress').value,
+            Business: document.getElementById('createBusiness').value
+        };
+
+        fetch('https://localhost:7063/v1/customers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(customerData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert('Cliente adicionado com sucesso:', data);
+                location.reload();
+            })
+            .catch(error => {
+                alert('Erro ao adicionar cliente:', error);
+            });
+    }
+</script>

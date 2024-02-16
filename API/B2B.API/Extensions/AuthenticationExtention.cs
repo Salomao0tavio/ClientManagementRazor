@@ -1,11 +1,12 @@
-﻿using Services.B2B_Identity.Configurations;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using B2B.API.Extensions;
+using B2B.Application.Configurations;
 
-namespace Services.B2B.API.Extensions
+namespace B2B.API.Extensions
 {
     public static class AuthenticationExtention
     {
@@ -58,6 +59,6 @@ namespace Services.B2B.API.Extensions
                 options.TokenValidationParameters = tokenValidationParameters;
             });
         }
-        
+
     }
 }

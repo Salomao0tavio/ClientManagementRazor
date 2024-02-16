@@ -1,17 +1,17 @@
-﻿using Application.B2B.Aplication.Interfaces.Services;
-using Application.B2B_Application.DTOs.Request;
-using Application.B2B_Application.DTOs.Response;
+﻿using B2B.Application.DTOs.Response;
+using B2B.Application.DTOs.Request;
 using Microsoft.AspNetCore.Mvc;
+using B2B.Application.Interfaces;
 
-namespace Services.B2B.API.Controllers
+namespace B2B.API.Controllers
 {
     [ApiController]
     [Route("v1")]
     public class UserController : ControllerBase
     {
-        private IIdentityService _identityService;
+        private ILoginService _identityService;
 
-        public UserController(IIdentityService identityService) =>
+        public UserController(ILoginService identityService) =>
             _identityService = identityService;
 
         [ProducesResponseType(typeof(UserLoginResponse), StatusCodes.Status200OK)]

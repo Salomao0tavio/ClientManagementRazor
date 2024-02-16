@@ -1,0 +1,18 @@
+﻿@model Customer
+
+<div class="modal" tabindex="-1" id="deleteModal-@Model.ID">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirmar Exclusão</h4>
+            </div>
+            <div class="modal-body">
+                <p>Deseja realmente apagar o cliente <span id="customerName-@Model.ID">@Model.Name</span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="deleteCustomer('@Model.ID','@Model.Name')">Apagar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
