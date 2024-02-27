@@ -1,6 +1,6 @@
 # B2B.API - Razor Website 🚀
 
-Welcome to the ClientManagementRazor repository! This project is designed to leverage the B2B API for performing CRUD operations on clients, accompanied by a sleek login screen.
+Welcome to the ClientManagementRazor repository! This project is designed to leverage the API for performing CRUD operations on clients, accompanied by a sleek login screen.
 
 ## Project Structure 📂
 
